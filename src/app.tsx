@@ -1,11 +1,11 @@
 import React from "react";
 import MapContainer from "./components/MapContainer";
 import SearchBar from "./components/SearchBar";
-import "./index.css";
+import style from "./index.module.css";
 
 const App = () => {
   return (
-    <main className="container" id="autocomplete-container">
+    <main className={style.container}>
       <SearchBar />
       <MapContainer />
     </main>

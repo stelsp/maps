@@ -1,10 +1,10 @@
-import React, { FC } from "react";
+import React from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setText, setCoords, setSearch } from "../../store/dataSlice";
 import { useGetDataQuery } from "../../store/dataApi";
+import useDebounce from "../../hooks/useDebounce";
 
 import style from "./style.module.css";
-import useDebounce from "../../hooks/useDebounce";
 
 const Input = () => {
   const { search } = useAppSelector((state) => state.data);
@@ -28,9 +28,9 @@ const Output = () => {
   const { text } = useAppSelector((state) => state.data);
   const dispatch = useAppDispatch();
 
-  const debouncedSearch = useDebounce(text, 1000);
-
+  const debouncedSearch = useDebounce(text, 400);
   const { data } = useGetDataQuery(debouncedSearch);
+
   return (
     <div className={style.output}>
       {data?.features.map((el, index) => (
@@ -54,7 +54,7 @@ const Output = () => {
   );
 };
 
-const SearchBar: FC = () => {
+const SearchBar = () => {
   return (
     <section className={style.container} aria-label="search-bar">
       <Input />
