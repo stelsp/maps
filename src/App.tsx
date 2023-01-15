@@ -1,49 +1,36 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import "./styles.css";
 import { IResult } from "./types";
+import { getData } from "./utils/getData";
+import useDebounce from "./utils/useDebounce";
 
 const App: FC = () => {
-  const [state, setState] = useState("");
-  const [result, setResult] = useState<IResult[]>();
+  const [text, setText] = useState("");
+  const [result, setResult] = useState<IResult[] | null>(null);
   const [coords, setCoords] = useState({ lat: 0, lon: 0 });
 
-  const testFetch = () => {
-    let requestOptions = {
-      method: "GET",
-    };
-
-    fetch(
-      `https://api.geoapify.com/v1/geocode/autocomplete?text=${state}&apiKey=0895cbb5ad8c463ca78d2062e74f3423&lang=ru `,
-      requestOptions
-    )
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-        setResult(result.features);
-      })
-      .catch((error) => console.log("error", error));
-  };
+  useEffect(() => {
+    if (text.length > 0) {
+      getData(text, setResult);
+    }
+  }, [text]);
 
   return (
     <div className="container" id="autocomplete-container">
       <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          testFetch();
-        }}
+      // onSubmit={(e) => {
+      //   e.preventDefault();
+      //   getData(text, setResult);
+      // }}
       >
         <input
           type="text"
-          value={state}
-          onChange={(e) => {
-            setState(e.target.value);
-            // setTimeout(() => {
-            //   if (state.length > 0) {
-            //     testFetch();
-            //   }
-            // }, 3000);
-          }}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
         />
+      </form>
+      {/* OUTPUT >>> */}
+      <div>
         {result ? (
           <div className="output">
             {result.map((el, index) => (
@@ -64,7 +51,7 @@ const App: FC = () => {
         <div>
           lat:{coords.lat} lon:{coords.lon}
         </div>
-      </form>
+      </div>
     </div>
   );
 };
