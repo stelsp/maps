@@ -1,11 +1,12 @@
 import React, { useRef, useEffect } from "react";
 import maplibregl from "maplibre-gl";
-import "maplibre-gl/dist/maplibre-gl.css";
-import style from "./style.module.css";
 import { useAppSelector } from "../../store/hooks";
 import { myAPIKey } from "../../store/dataApi";
 
-export default function MapContainer() {
+import "maplibre-gl/dist/maplibre-gl.css";
+import style from "./style.module.css";
+
+const MapContainer = () => {
   const { lat, lon } = useAppSelector((state) => state.data.coords);
 
   const mapContainer = useRef(null);
@@ -43,4 +44,6 @@ export default function MapContainer() {
       <div ref={mapContainer} className={style.map} />
     </section>
   );
-}
+};
+
+export default MapContainer;
