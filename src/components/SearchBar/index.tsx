@@ -1,8 +1,7 @@
 import React, { FC } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { setText, setCoords, setSearch } from "../../store/dataSlice";
-import { useGetDataQuery } from "../../store/testSlice";
-import { IResult } from "../../types";
+import { useGetDataQuery } from "../../store/dataApi";
 
 import style from "./style.module.css";
 
@@ -31,7 +30,7 @@ const Output = () => {
 
   return (
     <div className={style.output}>
-      {data?.features.map((el: IResult, index: number) => (
+      {data?.features.map((el, index) => (
         <span
           key={index}
           onClick={() => {

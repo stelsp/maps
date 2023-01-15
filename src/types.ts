@@ -1,11 +1,11 @@
-interface Datasource {
+export interface Datasource {
   sourcename: string;
   attribution: string;
   license: string;
   url: string;
 }
 
-interface Timezone {
+export interface Timezone {
   name: string;
   offset_STD: string;
   offset_STD_seconds: number;
@@ -15,21 +15,22 @@ interface Timezone {
   abbreviation_DST: string;
 }
 
-interface Rank {
+export interface Rank {
   importance: number;
   confidence: number;
   confidence_city_level: number;
   match_type: string;
 }
 
-interface Properties {
+export interface Properties {
   datasource: Datasource;
-  name: string;
   country: string;
   country_code: string;
-  region: string;
   state: string;
+  county: string;
   city: string;
+  postcode: string;
+  town: string;
   lon: number;
   lat: number;
   formatted: string;
@@ -40,16 +41,37 @@ interface Properties {
   result_type: string;
   rank: Rank;
   place_id: string;
+  region: string;
+  village: string;
+  name: string;
+  municipality: string;
+  hamlet: string;
 }
 
-interface Geometry {
+export interface Geometry {
   type: string;
   coordinates: number[];
 }
 
-export interface IResult {
+export interface Feature {
   type: string;
   properties: Properties;
   geometry: Geometry;
   bbox: number[];
+}
+
+export interface Parsed {
+  city: string;
+  expected_type: string;
+}
+
+export interface Query {
+  text: string;
+  parsed: Parsed;
+}
+
+export interface IResult {
+  features: Feature[];
+  type: string;
+  query: Query;
 }

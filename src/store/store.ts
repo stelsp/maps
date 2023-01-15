@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import dataSlice from "./dataSlice";
-import { dataApi } from "./testSlice";
+import { dataApi } from "./dataApi";
 
 export const store = configureStore({
   reducer: {
