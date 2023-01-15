@@ -3,13 +3,13 @@ import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import style from "./style.module.css";
 import { useAppSelector } from "../../store/hooks";
+import { myAPIKey } from "../../store/dataApi";
 
 export default function MapContainer() {
   const { lat, lon } = useAppSelector((state) => state.data.coords);
 
   const mapContainer = useRef(null);
   const map = useRef(null);
-  const myAPIKey = "0895cbb5ad8c463ca78d2062e74f3423";
   const mapStyle = "https://maps.geoapify.com/v1/styles/osm-carto/style.json";
 
   useEffect(() => {
@@ -39,8 +39,8 @@ export default function MapContainer() {
   }, [lat, lon]);
 
   return (
-    <div className={style.mapWrap}>
+    <section className={style.mapWrap} aria-label="map-container">
       <div ref={mapContainer} className={style.map} />
-    </div>
+    </section>
   );
 }
