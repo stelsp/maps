@@ -30,6 +30,8 @@ export default function MapContainer() {
 
     const marker = new maplibregl.Marker({ color: "#FF0000" });
     marker.setLngLat([lon, lat]).addTo(map.current);
+    // @ts-ignore
+    map.current.jumpTo({ center: [lon, lat], zoom: 15 });
 
     return () => {
       marker.remove();

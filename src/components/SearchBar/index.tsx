@@ -18,6 +18,7 @@ const Input = () => {
           dispatch(setText(e.target.value));
           dispatch(setSearch(e.target.value));
         }}
+        placeholder="Enter adress here"
       />
     </form>
   );
