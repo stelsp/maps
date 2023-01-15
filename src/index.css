@@ -1,0 +1,90 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800&display=swap");
+/* RESET  */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+ul,
+ol {
+  list-style: none;
+}
+html {
+  scroll-behavior: smooth;
+}
+html:focus-within {
+  scroll-behavior: smooth;
+}
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+}
+a {
+  text-decoration: inherit;
+  color: inherit;
+}
+img,
+picture,
+svg {
+  display: block;
+}
+@media screen and (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+button {
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+}
+
+:root {
+  --ff-primary: "Raleway", sans-serif;
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --fw-300: 300;
+  --fw-400: 400;
+  --fw-500: 500;
+  --fw-600: 600;
+  --fw-700: 700;
+  --fw-800: 800;
+}
+
+body {
+  font-family: var(--ff-primary);
+  font-weight: var(--fw-400);
+  background-color: var(--color-white);
+  color: var(--color-black);
+  min-width: 320px;
+}
+
+.container {
+  /* не может быть больше (--max-width)
+     если ширина экрана меньше (--max-width),
+     то ширина 100% - (--padding) по сторонам 
+  */
+  --max-width: 1200px;
+  --padding: 16px;
+  width: min(var(--max-width), 100% - (var(--padding) * 2));
+  margin-inline: auto;
+}
