@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import styles from "./app.module.css";
+import "./styles.css";
 
 const App: FC = () => {
   const [state, setState] = useState("");
@@ -16,14 +16,14 @@ const App: FC = () => {
     )
       .then((response) => response.json())
       .then((result) => {
-        console.log(result.features[1].properties.formatted);
+        console.log(result);
         setResult(result.features);
       })
       .catch((error) => console.log("error", error));
   };
 
   return (
-    <div className={styles.container} id="autocomplete-container">
+    <div className="container" id="autocomplete-container">
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -42,10 +42,12 @@ const App: FC = () => {
             // }, 3000);
           }}
         />
-        <div className={styles.output}>
-          {result.map((el, index) => (
-            <span key={index}>{el.properties.formatted}</span>
-          ))}
+        <div className="output">
+          {state.length > 0 &&
+            result.map((el, index) => (
+              // @ts-ignore
+              <span key={index}>{el.properties.formatted}</span>
+            ))}
         </div>
       </form>
     </div>
