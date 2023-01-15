@@ -1,20 +1,24 @@
 import React, { FC } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { setText, setCoords } from "../../store/dataSlice";
+import { setText, setCoords, setSearch } from "../../store/dataSlice";
 import { useGetDataQuery } from "../../store/testSlice";
 import { IResult } from "../../types";
 
 import style from "./style.module.css";
 
 const Input = () => {
-  const { text } = useAppSelector((state) => state.data);
+  const { search } = useAppSelector((state) => state.data);
   const dispatch = useAppDispatch();
   return (
     <form className={style.input} onSubmit={(e) => e.preventDefault()}>
       <input
-        type="text"
-        value={text}
-        onChange={(e) => dispatch(setText(e.target.value))}
+        type="search"
+        value={search}
+        onChange={(e) => {
+          dispatch(setText(e.target.value));
+          dispatch(setSearch(e.target.value));
+        }}
+        placeholder="Enter adress here"
       />
     </form>
   );
@@ -23,21 +27,23 @@ const Input = () => {
 const Output = () => {
   const { text } = useAppSelector((state) => state.data);
   const dispatch = useAppDispatch();
-  const { data, error, isLoading } = useGetDataQuery(text);
+  const { data } = useGetDataQuery(text);
 
   return (
     <div className={style.output}>
       {data?.features.map((el: IResult, index: number) => (
         <span
           key={index}
-          onClick={() =>
+          onClick={() => {
             dispatch(
               setCoords({
                 lat: el.properties.lat,
                 lon: el.properties.lon,
               })
-            )
-          }
+            );
+            dispatch(setText(""));
+            dispatch(setSearch(el.properties.formatted));
+          }}
         >
           {el.properties.formatted}
         </span>

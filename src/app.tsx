@@ -1,15 +1,14 @@
-import { FC, useEffect } from "react";
-import SearchBar from "./components/SearchBar";
+import { FC, useEffect, useState } from "react";
 import MapContainer from "./components/MapContainer";
-
+import SearchBar from "./components/SearchBar";
 import "./index.css";
 
 const App: FC = () => {
   return (
-    <div className="container" id="autocomplete-container">
+    <main className="container" id="autocomplete-container">
       <SearchBar />
       <MapContainer />
-    </div>
+    </main>
   );
 };
 
