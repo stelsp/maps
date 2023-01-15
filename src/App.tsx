@@ -1,9 +1,11 @@
 import { FC, useState } from "react";
 import "./styles.css";
+import { IResult } from "./types";
 
 const App: FC = () => {
   const [state, setState] = useState("");
-  const [result, setResult] = useState([]);
+  const [result, setResult] = useState<IResult[]>();
+  const [coords, setCoords] = useState({ lat: 0, lon: 0 });
 
   const testFetch = () => {
     let requestOptions = {
@@ -42,12 +44,25 @@ const App: FC = () => {
             // }, 3000);
           }}
         />
-        <div className="output">
-          {state.length > 0 &&
-            result.map((el, index) => (
-              // @ts-ignore
-              <span key={index}>{el.properties.formatted}</span>
+        {result ? (
+          <div className="output">
+            {result.map((el, index) => (
+              <span
+                key={index}
+                onClick={() =>
+                  setCoords({
+                    lat: el.properties.lat,
+                    lon: el.properties.lon,
+                  })
+                }
+              >
+                {el.properties.formatted}
+              </span>
             ))}
+          </div>
+        ) : null}
+        <div>
+          lat:{coords.lat} lon:{coords.lon}
         </div>
       </form>
     </div>
