@@ -1,6 +1,7 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IResult } from "../types";
+export const myAPIKey = "0895cbb5ad8c463ca78d2062e74f3423";
 
 // Define a service using a base URL and expected endpoints
 export const dataApi = createApi({
@@ -13,7 +14,7 @@ export const dataApi = createApi({
       query: (text: string) =>
         `autocomplete?text=${
           text.length > 0 ? text : 0
-        }&apiKey=0895cbb5ad8c463ca78d2062e74f3423&lang=ru`,
+        }&apiKey=${myAPIKey}&lang=ru`,
     }),
   }),
 });

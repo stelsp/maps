@@ -4,6 +4,7 @@ import { setText, setCoords, setSearch } from "../../store/dataSlice";
 import { useGetDataQuery } from "../../store/dataApi";
 
 import style from "./style.module.css";
+import useDebounce from "../../hooks/useDebounce";
 
 const Input = () => {
   const { search } = useAppSelector((state) => state.data);
@@ -26,8 +27,10 @@ const Input = () => {
 const Output = () => {
   const { text } = useAppSelector((state) => state.data);
   const dispatch = useAppDispatch();
-  const { data } = useGetDataQuery(text);
 
+  const debouncedSearch = useDebounce(text, 1000);
+
+  const { data } = useGetDataQuery(debouncedSearch);
   return (
     <div className={style.output}>
       {data?.features.map((el, index) => (
