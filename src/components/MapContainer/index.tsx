@@ -1,13 +1,9 @@
 import React, { FC } from "react";
+import { useAppSelector } from "../../store/hooks";
 
-interface IMap {
-  coords: {
-    lat: number;
-    lon: number;
-  };
-}
+const MapContainer: FC = () => {
+  const { coords } = useAppSelector((state) => state.data);
 
-const MapContainer: FC<IMap> = ({ coords }) => {
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       lat:{coords.lat} lon:{coords.lon}

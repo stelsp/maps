@@ -1,9 +1,4 @@
-import { IResult } from "../types";
-
-export const getData = (
-  text: string,
-  setResult: React.Dispatch<React.SetStateAction<IResult[] | null>>
-) => {
+export const getData = (text: string) => {
   let requestOptions = {
     method: "GET",
   };
@@ -15,7 +10,6 @@ export const getData = (
     .then((response) => response.json())
     .then((result) => {
       console.log(result);
-      setResult(result.features);
     })
     .catch((error) => console.log("error", error));
 };

@@ -1,49 +1,39 @@
 import React, { FC } from "react";
-import { IResult } from "../../types";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { setText, setCoords } from "../../store/dataSlice";
 
-interface ISearchBar {
-  text: string;
-  result: IResult[] | null;
+const SearchBar: FC = () => {
+  const { text, result } = useAppSelector((state) => state.data);
+  const dispatch = useAppDispatch();
 
-  setText: React.Dispatch<React.SetStateAction<string>>;
-  setCoords: React.Dispatch<
-    React.SetStateAction<{
-      lat: number;
-      lon: number;
-    }>
-  >;
-}
-
-const SearchBar: FC<ISearchBar> = ({ text, result, setText, setCoords }) => {
   return (
-    <div>
+    <section>
       <form>
         <input
           type="text"
           value={text}
-          onChange={(e) => setText(e.target.value)}
+          onChange={(e) => dispatch(setText(e.target.value))}
         />
       </form>
-      <div>
-        {result ? (
-          <div className="output">
-            {result.map((el, index) => (
-              <span
-                key={index}
-                onClick={() =>
+      <div className="output">
+        {result &&
+          result.map((el, index) => (
+            <span
+              key={index}
+              onClick={() =>
+                dispatch(
                   setCoords({
                     lat: el.properties.lat,
                     lon: el.properties.lon,
                   })
-                }
-              >
-                {el.properties.formatted}
-              </span>
-            ))}
-          </div>
-        ) : null}
+                )
+              }
+            >
+              {el.properties.formatted}
+            </span>
+          ))}
       </div>
-    </div>
+    </section>
   );
 };
 

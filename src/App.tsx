@@ -1,31 +1,26 @@
 import { FC, useEffect, useState } from "react";
 import "./index.css";
 import { IResult } from "./types";
-import { getData } from "./utils/getData";
-import useDebounce from "./utils/useDebounce";
+import useDebounce from "./hooks/useDebounce";
 import SearchBar from "./components/SearchBar";
 import MapContainer from "./components/MapContainer";
+import { useAppDispatch, useAppSelector } from "./store/hooks";
+import { getData } from "./store/dataSlice";
 
 const App: FC = () => {
-  const [text, setText] = useState("");
-  const [result, setResult] = useState<IResult[] | null>(null);
-  const [coords, setCoords] = useState({ lat: 0, lon: 0 });
+  const { text } = useAppSelector((state) => state.data);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (text.length > 0) {
-      getData(text, setResult);
+      dispatch(getData());
     }
   }, [text]);
 
   return (
-    <div className="container">
-      <SearchBar
-        text={text}
-        result={result}
-        setText={setText}
-        setCoords={setCoords}
-      />
-      <MapContainer coords={coords} />
+    <div className="container" id="autocomplete-container">
+      <SearchBar />
+      <MapContainer />
     </div>
   );
 };
