@@ -1,0 +1,13 @@
+.container {
+  margin-bottom: 20px;
+}
+
+.output {
+  display: flex;
+  flex-direction: column;
+}
+
+.output span:hover {
+  background: grey;
+  cursor: pointer;
+}
